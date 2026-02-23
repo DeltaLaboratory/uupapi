@@ -1,7 +1,8 @@
 FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache nginx && \
-    mkdir -p /run/nginx
+    mkdir -p /run/nginx && \
+    echo 'display_errors = Off' > /usr/local/etc/php/conf.d/errors.ini
 
 COPY nginx.conf /etc/nginx/http.d/default.conf
 
