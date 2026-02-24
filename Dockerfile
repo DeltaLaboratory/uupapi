@@ -1,6 +1,6 @@
 FROM php:8.3-fpm-alpine
 
-RUN apk add --no-cache nginx && \
+RUN apk add --no-cache nginx p7zip && \
     mkdir -p /run/nginx && \
     echo 'display_errors = Off' > /usr/local/etc/php/conf.d/errors.ini
 
@@ -11,10 +11,10 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN chmod +x sync.sh /entrypoint.sh && \
-    mkdir -p cache fileinfo/metadata fileinfo/full && \
-    chown -R www-data:www-data cache fileinfo
+    mkdir -p cache fileinfo/metadata fileinfo/full packs uuptmp && \
+    chown -R www-data:www-data cache fileinfo packs uuptmp
 
-VOLUME ["/var/www/html/fileinfo", "/var/www/html/cache"]
+VOLUME ["/var/www/html/fileinfo", "/var/www/html/cache", "/var/www/html/packs"]
 
 EXPOSE 80
 

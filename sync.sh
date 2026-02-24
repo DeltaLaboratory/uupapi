@@ -77,4 +77,8 @@ for ARCH in amd64 arm64; do
     fetch "$ARCH" "RP" "26100" "48"
 done
 
+# --- 3. Generate packs for builds that don't have them ---
+echo "[sync] Generating packs for new builds..."
+cd /var/www/html && php packsgen.php
+
 echo "[sync] Done"
