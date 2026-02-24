@@ -1,5 +1,10 @@
 <?php
 function checkIfUserIsRateLimited($resource, $timeLimit = 10, $currentResLimit = 1) {
+    $apiKey = getenv('API_KEY');
+    if($apiKey && isset($_GET['key']) && hash_equals($apiKey, $_GET['key'])) {
+        return false;
+    }
+
     $clientIP = $_SERVER['REMOTE_ADDR'];
     $ipHash = hash('sha256', "ratelimits-$clientIP");
 
